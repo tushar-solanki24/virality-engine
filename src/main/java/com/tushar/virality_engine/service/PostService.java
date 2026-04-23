@@ -20,6 +20,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final BotRepository botRepository;
     private final UserRepository userRepository;
+    private final ViralityService viralityService;
 
     public Post createPost(@NonNull Post post) {
         // Add this null check first!
@@ -50,7 +51,7 @@ public class PostService {
     }
 
     public boolean likePost(@NonNull Long postId) {
-        // TODO: Phase 2 will add Redis logic for like tracking
+        viralityService.addViralityScore(postId, 20L);
         return true;
     }
 }
