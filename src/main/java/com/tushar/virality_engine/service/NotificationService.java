@@ -13,7 +13,7 @@ public class NotificationService {
     private final StringRedisTemplate stringRedisTemplate;
 
     public NotificationService(RedisTemplate<String, Long> redisTemplate,
-                               StringRedisTemplate stringRedisTemplate) {
+            StringRedisTemplate stringRedisTemplate) {
         this.redisTemplate = redisTemplate;
         this.stringRedisTemplate = stringRedisTemplate;
     }
@@ -33,12 +33,13 @@ public class NotificationService {
         if (Boolean.TRUE.equals(onCooldown)) {
             // Push to pending list
             stringRedisTemplate.opsForList().rightPush(
-                pendingNotifKey(userId),
-                botName + " replied to your post"
-            );
+                    pendingNotifKey(userId),
+                    botName + " replied to your post");
         } else {
             // Send immediately + set 15 min cooldown
-            System.out.println("Push Notification Sent to User: " + userId);
+            System.out.println("🔔 ========================");
+            System.out.println("🔔 Push Notification Sent to User: " + userId);
+            System.out.println("🔔 ========================");
             redisTemplate.opsForValue().set(cooldownKey, 1L, 15, TimeUnit.MINUTES);
         }
     }

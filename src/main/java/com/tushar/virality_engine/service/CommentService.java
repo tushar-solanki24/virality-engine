@@ -88,6 +88,7 @@ public class CommentService {
         if (comment.getAuthorType() == AuthorType.BOT) {
             var post = postRepository.findById(postId).get();
             var bot = botRepository.findById(comment.getAuthorId()).get();
+            System.out.println("🔔 Calling notification for userId: " + post.getAuthorId());
             notificationService.handleBotNotification(
                     post.getAuthorId(),
                     bot.getName());
